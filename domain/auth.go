@@ -8,5 +8,15 @@ type RegisterPayload struct {
 }
 
 func (d *Domain) Register(payload RegisterPayload) (*User, error){
-	
+	userExist, _ := d.DB.UserRepo.GetByEmail(payload.Email)
+	if userExist != nil {
+		return nil, ErrUserWithEmailAlreadyExist
+	}
+
+	userExist, _ = d.DB.UserRepo.GetByEmail(payload.Username)
+	if userExist != nil {
+		return nil, ErrUserWithUsernameAlreadyExist
+	}
+//	hash password
+
 }
